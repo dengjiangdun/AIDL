@@ -22,4 +22,17 @@
         android:id="@+id/iv_animation_test"
         android:src="@mipmap/ic_launcher"/>
 
+    <TextView
+        android:id="@+id/tv_anmation"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:onClick="onClickAnimaiton"
+        android:text="Animation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="133dp" />
+
 </android.support.constraint.ConstraintLayout>

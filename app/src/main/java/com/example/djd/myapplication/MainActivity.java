@@ -3,6 +3,9 @@ package com.example.djd.myapplication;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
@@ -57,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 
         Handler handler = new Handler();
         //handler.post()
-
         mIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +69,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = this.getPackageManager().getPackageInfo("com.example.djd.myapplication",0);
+            Log.i("test", "onDestroy: "+packageInfo.versionName+"code"+packageInfo.versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
+
+    public void onClickAnimaiton(View view){
+        Intent intent = new Intent(MainActivity.this, AnimationActivity.class);
+        startActivity(intent);
+    }
+
 
     ServiceConnection conn = new ServiceConnection() {
         @Override
@@ -95,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i("test", "newBookArrived: "+book.toString());
         }
     };
+
+    
 
     private void jumpToSecondActivity(){
         ARouter.getInstance().build(PathContance.SECOND_ACTIVITY_PATH)
@@ -126,13 +144,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (listener != null && iBookManager.asBinder().isBinderAlive()) {
+        if (listener != null && iBookManager!=null && iBookManager.asBinder().isBinderAlive()) {
             try {
                 iBookManager.unregisterOnNewBookArrivedListener(listener);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
         }
+
+
 
         unbindService(conn);
     }
