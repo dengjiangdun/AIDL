@@ -29,6 +29,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:gravity="center"
+        android:textSize="20sp"
         android:onClick="onClickAnimaiton"
         android:text="Animation"
         app:layout_constraintEnd_toEndOf="parent"

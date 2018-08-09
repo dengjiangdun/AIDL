@@ -6,18 +6,24 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView mIv;
     private IBookManager iBookManager;
+    private TextView mTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+        mTv = (TextView) findViewById(R.id.tv_anmation);
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+        spannableStringBuilder.append("Hello world ha ha");
+        ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.parseColor("#009ad6"));
+        spannableStringBuilder.setSpan(foregroundColorSpan,0,3, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        mTv.setText(spannableStringBuilder);
         PackageInfo packageInfo = null;
         try {
             packageInfo = this.getPackageManager().getPackageInfo("com.example.djd.myapplication",0);
